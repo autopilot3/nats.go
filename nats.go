@@ -3271,6 +3271,7 @@ slowConsumer:
 		// that we were trying to avoid, except that in this case, the client
 		// is already experiencing client-side slow consumer situation.
 		nc.mu.Lock()
+		_, _ = os.Stderr.WriteString(fmt.Sprintf("SLOW_CONSUMER [%s]: %v", sub.Subject, m.Header))
 		nc.err = ErrSlowConsumer
 		if nc.Opts.AsyncErrorCB != nil {
 			nc.ach.push(func() { nc.Opts.AsyncErrorCB(nc, sub, ErrSlowConsumer) })
