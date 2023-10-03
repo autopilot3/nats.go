@@ -9,6 +9,7 @@ require (
 )
 
 require (
-	golang.org/x/crypto v0.6.0 // indirect
-	golang.org/x/sys v0.5.0 // indirect
+	github.com/autopilot3/ap3-helpers-go v0.0.0-20230920223515-9b6b14f41ae2 // indirect
+	golang.org/x/crypto v0.8.0 // indirect
+	golang.org/x/sys v0.8.0 // indirect
 )

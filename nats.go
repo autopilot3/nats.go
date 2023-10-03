@@ -17,6 +17,7 @@ package nats
 import (
 	"bufio"
 	"bytes"
+	"context"
 	"crypto/tls"
 	"crypto/x509"
 	"encoding/base64"
@@ -39,6 +40,7 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/autopilot3/ap3-helpers-go/logger"
 	"github.com/nats-io/nkeys"
 	"github.com/nats-io/nuid"
 
@@ -3271,6 +3273,7 @@ slowConsumer:
 		// that we were trying to avoid, except that in this case, the client
 		// is already experiencing client-side slow consumer situation.
 		nc.mu.Lock()
+		logger.Warnw(context.Background(), fmt.Sprintf("SLOW_CONSUMER [%s]: %v\n", sub.Subject, m.Header), "nats", "processMsg")
 		nc.err = ErrSlowConsumer
 		if nc.Opts.AsyncErrorCB != nil {
 			nc.ach.push(func() { nc.Opts.AsyncErrorCB(nc, sub, ErrSlowConsumer) })
